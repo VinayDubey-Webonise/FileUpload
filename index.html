@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>File handling and uploading</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  </head>
+
+  <body>
+    <header class="container">
+      <h1 class="mainHeader text-primary">Article Upload</h1>
+      <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link text-light" href="./">Home</a>
+          </li>
+        </ul>  
+      </nav>
+    </header>
+    
+    <div class="container formBody">
+    <form action="store_data.php" method="POST" onsubmit="return validateFields()" enctype="multipart/form-data">
+      <div class="form-group">
+        <label for="text">Title</label>
+        <input type="text" class="form-control" name="articleTitle" id="articleTitle" required>
+      </div>
+      
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Upload</span>
+        </div>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" name="imageFile" id="imageFile" required>
+          <label class="custom-file-label">Choose image file</label>
+        </div>
+      </div>
+
+      <div class="input-group form-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Upload</span>
+        </div>
+        <div class="custom-file">
+          <input type="file" class="custom-file-input" name="documentFile" id="documentFile" required>
+          <label class="custom-file-label">Choose document file</label>
+        </div>
+      </div>
+
+      <div class="alert alert-info" role="alert">
+        <strong>Note : </strong> Maximum file size for image is 3 MB and document is 10 MB.
+      </div>      
+      <input type="submit" class="btn btn-primary" value="Submit">
+    </form>
+    </div>
+
+    <script type="text/javascript" src="js/script.js" ></script>
+
+  </body>
+</html>
