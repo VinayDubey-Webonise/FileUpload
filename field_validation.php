@@ -17,12 +17,15 @@ function validateImage($articleImage) {
       $fileSize = $articleImage['size'];
       $fileTmp = $articleImage['tmp_name'];
       $fileType = $articleImage['type'];
-      @$fileExt = strtolower(end(explode('.',$fileName)));
       
-      $expensions = array("jpeg","jpg","png");
+      $fileAllowedArray = array("image/jpeg","image/jpg","image/png");
       
-      if (in_array($fileExt,$expensions)=== false) {
-         $errors[]="extension not allowed, please choose a JPEG, JPG or PNG file.";
+      // Checking file type
+      $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+      $fileType = finfo_file($fileInfo, $fileTmp);
+
+      if (in_array($fileType, $fileAllowedArray)=== false) {
+         $errors[]="File not allowed, please choose a JPEG, JPG or PNG file.";
       }
       
       if ($fileSize > 3097152) {
@@ -34,6 +37,7 @@ function validateImage($articleImage) {
          echo "Image successfully uploaded<br>";
       }else{
          print_r($errors);
+         die("<br>Fix the errors first");
       }
    }
 }
@@ -45,14 +49,18 @@ function validateDocument($articleDocument) {
      $fileSize = $articleDocument['size'];
      $fileTmp = $articleDocument['tmp_name'];
      $fileType = $articleDocument['type'];
-     @$fileExt = strtolower(end(explode('.',$fileName)));
      
-     $expensions = array("doc","docx");
+     $fileAllowedArray = array("application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                           ,"application/msword");
      
-     if (in_array($fileExt,$expensions)=== false) {
-        $errors[]="extension not allowed, please choose a docx file.";
+     // Checking file type
+     $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+     $fileType = finfo_file($fileInfo, $fileTmp);
+
+     if (in_array($fileType, $fileAllowedArray)=== false) {
+        $errors[]="File not allowed, please choose a doc and docx file.";
      }
-     
+
      if ($fileSize > 10097152) {
         $errors[]='File size must be smaller than 10 MB';
      }
@@ -62,6 +70,7 @@ function validateDocument($articleDocument) {
         echo "Document successfully uploaded<br>";
      }else{
         print_r($errors);
+        die("<br>Fix the errors first");
      }
   }
 }

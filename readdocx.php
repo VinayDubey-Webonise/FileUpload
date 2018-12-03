@@ -53,23 +53,23 @@ class DocxConversion{
         return $striped_content;
     }
 
-    public function convertToText() {
+    public function convertToText($documentFilePath) {
 
         if(isset($this->filename) && !file_exists($this->filename)) {
             die("File Not exists");
         }
 
-        $fileArray = pathinfo($this->filename);
-        $file_ext  = $fileArray['extension'];
-        if($file_ext == "doc" || $file_ext == "docx")
-        {
-            if($file_ext == "doc") {
-                return $this->read_doc();
-            } elseif($file_ext == "docx") {
+        $fileInfo = finfo_open(FILEINFO_MIME_TYPE);
+        $fileType = finfo_file($fileInfo, $documentFilePath);
+
+        switch($fileType) {
+            case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
                 return $this->read_docx();
-            }
-        } else {
-            die("Invalid File Type");
+            case 'application/msword':
+                return $this->read_doc();
+            default:
+                die('Invalid File Type');
+            
         }
     }
 

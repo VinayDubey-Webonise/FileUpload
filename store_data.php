@@ -3,7 +3,6 @@ include ('connection.php');
 include ('field_validation.php');
 include ('document_operation.php');
 
-
 $articleTitle = $_POST['articleTitle'];
 $articleImage = $_FILES['imageFile'];
 $articleImageName = $articleImage['name'];

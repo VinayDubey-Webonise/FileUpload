@@ -5,7 +5,7 @@ require_once 'readdocx.php';
 function documentAppend($documentFilePath, $appendText){
   // read the existing content from file
   $docObj = new DocxConversion($documentFilePath);
-  $docText= $docObj->convertToText();
+  $docText= $docObj->convertToText($documentFilePath);
 
   $phpWord = new \PhpOffice\PhpWord\PhpWord();
 
